@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Lifesum.Models.CreateRecipeDto>
+
+@{
+    ViewData["Title"] = "EditFood";
+
+}
+
+@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+        <h5 style="color: #B91646; margin-bottom: 10px; font-size: 25px;">
+            @TempData["Msg"]
+        </h5>
+    </div>
+}
+
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <h5>Delete Food</h5>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Food Id</th>
+                        <th>Title</th>
+                        <th>Selected Serving</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                @foreach (var i in item.foods)
+                {
+                    foreach (var ser in i.servings)
+                    {
+                        <tr>
+                            <td>@i.food_id</td>
+                            <td>@i.food_name</td>
+                            <td>@ser.serving_id</td>
+                            <td>
+                                <form asp-action="DeleteFood" asp-route-Id="@item.recipeId" style="display: inline-block">
+                                    <input type="hidden" name="food_id" value="@i.food_id" />
+                                    <input type="hidden" name="serving_id" value="@ser.serving_id" />
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+
+                }
+
+            </table>
+        </div>
+    }
+}
+
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    @*$(function () {
+        $("#Submit").click(function () {
+            var recipeId = $('#recId').val();
+            var addFood = $('#example-getting-started').val();
+            debugger
+            $.ajax({
+               type: 'post',
+                url: '@Url.Action("AddMultipleFood", "Recipe")',
+                data: { 'Id': recipeId, 'addFood': addFood },
+                contenttype: 'application/json; charset=utf-8',
+                async: true,
+
+                })
+                });
+                });*@
+    setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000);
+
+</script>

@@ -1,0 +1,14 @@
+﻿@model Lifesum.Models.Category
+
+<option disabled selected value="">Select Subcategory</option>
+
+@if (ViewBag.data != null)
+{
+    foreach (var item in ViewBag.data)
+    {
+        foreach (var item1 in item.subcategories)
+        {
+        <option>@item1</option>
+        }
+    }
+}

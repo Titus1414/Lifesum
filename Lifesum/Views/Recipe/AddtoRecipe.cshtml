@@ -1,0 +1,107 @@
+﻿@model Lifesum.Models.CascadingClass
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Meal Page";
+}
+
+@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+        <h5 style="color: #4E9F3D; margin-bottom: 10px; font-size: 25px;">
+            @TempData["Msg"]
+        </h5>
+    </div>
+}
+
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="mb-4">Add Food to Recipe</h5>
+        <form action="AddtoRecipe" method="post" class="needs-validation tooltip-label-right">
+
+            <div class="form-group position-relative error-l-50">
+                <label>Add Food</label>
+                <select asp-for="FoodId" name="food" class="form-control" asp-items="@(new SelectList(ViewBag.Food, "FoodId", "title"))" required>
+                    <option disabled selected value="">Select Food</option>
+                </select>
+
+                <div class="invalid-tooltip">
+                    Food is required!
+                </div>
+            </div>
+
+            <div class="form-group position-relative error-l-50">
+                <label>Select Recipe</label>
+                <select name="recipeId" class="form-control" asp-items="@(new SelectList(ViewBag.recipe, "recipeId", "title"))" required>
+                    <option disabled selected value="">Select Recipe</option>
+                </select>
+                <div class="invalid-tooltip">
+                    Recipe is required!
+                </div>
+            </div>
+
+
+            <div class="form-group position-relative error-l-50">
+                <label>Add Serving</label>
+                <select asp-for="SerId" name="serving" class="form-control" asp-items="@(new SelectList(""))" required>
+                    <option disabled selected value="">Select Serving</option>
+                </select>
+                <div class="invalid-tooltip">
+                    Serving is required!
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-0" style="background-color: #6fb327; border-color: #6fb327">Add to Recipe</button>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <table>
+        <thead>
+            <tr>Calories</tr>
+            <tr>Carbs</tr>
+            <tr>Cholesterol</tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.mall)
+            {
+                <tr>@item.calories</tr>
+                <tr>@item.carbs</tr>
+                <tr>@item.cholesterol</tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        debugger
+        $("#FoodId").change(function () {
+            var CateId = $(this).val();
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/Recipe/GetSerList?id=" + CateId,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#SerId").empty();
+                    $("#SerId").append(response);
+
+                }
+            })
+        });
+    });
+
+    setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000);
+
+</script>

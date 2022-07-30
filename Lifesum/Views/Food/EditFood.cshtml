@@ -1,0 +1,174 @@
+﻿@model IEnumerable<Lifesum.Models.CreateFood>
+
+@foreach (var item in Model)
+{
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="mb-4">Edit Food</h5>
+            <form action="EditFood" method="post" enctype="multipart/form-data" class="needs-validation tooltip-label-right" novalidate>
+                <div class="container">
+                    <div class="row">
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input name="FoodId" value="@item.FoodId" hidden />
+                            <input name="Id" value="@item.Id" hidden />
+                            <input type="text" name="title" value="@item.title" class="form-control" placeholder="Title" required>
+                            <div class="invalid-tooltip">
+                                Title is required!
+                            </div>
+                        </div>
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input type="text" name="brand" class="form-control" value="@item.brand" placeholder="Brand" required>
+                            <div class="invalid-tooltip">
+                                Brand is required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="container">
+            <div class="row">
+                <div class="form-group position-relative error-l-50 col-12">
+                    <input type="text" name="category" class="form-control" value="@item.category" placeholder="Category" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="form-group position-relative error-l-50 col-12">
+                    <input type="text" name="subcategory" class="form-control" value="@item.subcategory" placeholder="Subcategory" required>
+                </div>
+            </div>
+        </div>*@
+
+                <div class="container">
+                    <div class="row">
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input type="number" name="calories" step="any" value="@item.calories" class="form-control" placeholder="Calories / 100g" required>
+                            <div class="invalid-tooltip">
+                                Calories are required!
+                            </div>
+                        </div>
+
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input type="number" name="protein" step="any" class="form-control" value="@item.protein" placeholder="Protein  / 100g" required>
+                            <div class="invalid-tooltip">
+                                Protein is required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input type="number" name="carbs" step="any" class="form-control" placeholder="Carbs  / 100g" value="@item.carbs" required>
+                            <div class="invalid-tooltip">
+                                Carbs are required!
+                            </div>
+                        </div>
+
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input type="number" name="fat" step="any" class="form-control" value="@item.fat" placeholder="Fat / 100g" required>
+                            <div class="invalid-tooltip">
+                                Fat is required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input type="number" name="saturatedfat" step="any" class="form-control" value="@item.saturatedfat" placeholder="Saturated Fat / 100g" required>
+                            <div class="invalid-tooltip">
+                                Subcategories are required!
+                            </div>
+                        </div>
+
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input type="number" name="unsaturatedfat" step="any" class="form-control" value="@item.unsaturatedfat" placeholder="Unsaturated Fat / 100g" required>
+                            <div class="invalid-tooltip">
+                                UnsaturatedFat is required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input type="number" name="fiber" step="any" class="form-control" value="@item.fiber" placeholder="Fiber / 100g" required>
+                            <div class="invalid-tooltip">
+                                Fiber is required!
+                            </div>
+                        </div>
+
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input type="number" name="cholesterol" step="any" class="form-control" value="@item.cholesterol" placeholder="Cholesterol / 100g" required>
+                            <div class="invalid-tooltip">
+                                Cholesterol is required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input type="number" name="potassium" step="any" class="form-control" value="@item.potassium" placeholder="Potassium / 100g" required>
+                            <div class="invalid-tooltip">
+                                Potassium is required!
+                            </div>
+                        </div>
+
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input type="number" name="sodium" step="any" class="form-control" placeholder="Sodium / 100g" value="@item.sodium" required>
+                            <div class="invalid-tooltip">
+                                Sodium is required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input type="text" name="barcode" step="any" value="@item.barcode" class="form-control" placeholder="Barcode / 100g" required>
+                            <div class="invalid-tooltip">
+                                Barcode is required!
+                            </div>
+                        </div>
+
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <input type="number" name="sugars" step="any" value="@item.sugars" class="form-control" placeholder="Sugars / 100g" required>
+                            <div class="invalid-tooltip">
+                                Sugar is required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="form-group position-relative error-l-50 col-4">
+                            <label>Add New Image</label>
+                            <input type="file" class="form-control" name="Img" placeholder="Chhose Third Image" accept="image/*">
+                        </div>
+
+                        <div class="col-md-3"></div>
+
+                        <div class="form-group position-relative error-l-50 col-5">
+
+                            <input type="hidden" name="image" accept="image/*" value="@item.Image" class="form-control">
+                            <img src="@Url.Content(item.Image)" style="width: 130px; height: 120px;" />
+                        </div>
+                    </div>
+                    <br />
+                </div>
+
+                <button type="submit" class="btn btn-primary mb-0" style="background-color: #6fb327; border-color: #6fb327">Save</button>
+            </form>
+        </div>
+    </div>
+}

@@ -1,0 +1,66 @@
+﻿@{
+    Layout = null;
+}
+
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&amp;display=swap" rel="stylesheet">
+<link href="~/css/log.css" rel="stylesheet" />
+
+
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 order-md-2">
+                <img src="~/content/images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid" />
+            </div>
+            <div class="col-md-6 contents">
+                <div class="row justify-content-center">
+                    @if (TempData["Msg"] != null)
+                    {
+                        <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+                            <h5 style="color: #B91646; margin-bottom: 10px; font-size: 25px;">
+                                @TempData["Msg"]
+                            </h5>
+                        </div>
+                    }
+                    <div class="col-md-8">
+
+                        <div class="mb-4">
+                            <h3>Sign In to <strong>Lifesum</strong></h3>
+                            @*<p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>*@
+                        </div>
+                        <form action="~/Login/Sign" method="post">
+                            <div class="form-group first">
+                                <input type="text" class="form-control" name="username" placeholder="Email" id="username">
+                            </div>
+                            <div class="form-group last mb-4">
+                                <input type="password" placeholder="Password" name="password" class="form-control" id="password">
+                            </div>
+                            <input type="submit" value="Log In" class="btn text-white btn-block btn-primary">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/popper.min.js+bootstrap.min.js+main.js.pagespeed.jc.AM7zHOnWML.js"></script>
+
+<script>eval(mod_pagespeed_VdtoRqoRj6);</script>
+<script>eval(mod_pagespeed_buaBZmHuVG);</script>
+<script>eval(mod_pagespeed__iE4DxA2EC);</script>
+<script defer src="../../../../static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"rayId":"69eff1679fdc14dd","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.9.0","si":100}'></script>
+
+
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script>
+    setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000);
+</script>

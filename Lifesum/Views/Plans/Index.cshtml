@@ -1,0 +1,93 @@
+﻿
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Index";
+}
+
+@*@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+        <h5 style="color: #4E9F3D; margin-bottom: 10px; font-size: 25px;">
+            @TempData["Msg"]
+        </h5>
+    </div>
+}*@
+
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="mb-4">Focus Plans</h5>
+        <form action="PlansFocus" method="post" class="needs-validation tooltip-label-right">
+
+            <div class="form-group position-relative error-l-50">
+                <label>Focus Message</label>
+                <input type="text" name="focusMessage" class="form-control" required>
+                <div class="invalid-tooltip">
+                    Focus Message is required!
+                </div>
+            </div>
+
+            <div class="form-group position-relative error-l-50">
+                <label>Calories</label>
+                <input type="number" step="any" name="calories" class="form-control" required>
+                <div class="invalid-tooltip">
+                    Calories are required!
+                </div>
+            </div>
+
+            <div class="form-group position-relative error-l-50">
+                <label>Carbs <span>(Sum of Protein, carbs and fat must be equal to 100)</span></label>
+                <input type="number" step="any" name="carbs" class="form-control" required>
+                <div class="invalid-tooltip">
+                    Carbs are required!
+                </div>
+            </div>
+
+            <div class="form-group position-relative error-l-50">
+                <label>Protein <span>(Sum of Protein, carbs and fat must be equal to 100)</span></label>
+                <input type="number" step="any" name="protein" class="form-control" required>
+                <div class="invalid-tooltip">
+                    Protein is Required!
+                </div>
+            </div>
+
+            <div class="form-group position-relative error-l-50">
+                <label>Fat <span>(Sum of Protein, carbs and fat must be equal to 100)</span></label>
+                <input type="number" step="any" name="fat" class="form-control" required>
+                <div class="invalid-tooltip">
+                    Fat is Required!
+                </div>
+            </div>
+
+            <div class="form-group position-relative error-l-50">
+                <label>Dos</label>
+                <input type="text" name="dos" class="form-control" data-role="tagsinput" required>
+                <div class="invalid-tooltip">
+                    Dos are Required!
+                </div>
+            </div>
+
+            <div class="form-group position-relative error-l-50">
+                <label>Donts</label>
+                <input type="text" name="donts" class="form-control" data-role="tagsinput" required>
+                <div class="invalid-tooltip">
+                    Don'ts are Required!
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-0" style="background-color: #6fb327; border-color: #6fb327">Save</button>
+
+        </form>
+    </div>
+</div>
+
+@*<script src="~/js/jquery-3.3.1.min.js"></script>
+<script>
+    setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000);
+</script>*@

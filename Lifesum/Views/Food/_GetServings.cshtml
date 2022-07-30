@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Lifesum.Models.ServingNewDto>
+
+@foreach (var item in Model)
+{
+    foreach (var items in item.serving)
+    {
+        //ye b open kerna hay
+        @*<tr>
+            <td>@Html.DisplayFor(modelItem => items.servingName)</td>
+            <td>@Html.DisplayFor(modelItem => items.unit)</td>
+            <td>@Html.DisplayFor(modelItem => items.value)</td>
+            <td>
+                <form asp-action="DeleteServing" asp-route-Id="@item.FoodId" style="display: inline-block">
+                    <input type="hidden" name="Indx" value="@items.servingName" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>*@
+    }
+
+
+}

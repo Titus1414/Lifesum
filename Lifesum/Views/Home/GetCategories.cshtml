@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Lifesum.Models.Category>
+
+@{
+    ViewData["Title"] = "GetCategories";
+}
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!-- JavaScript -->
+<!--<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>-->
+
+<!-- CSS -->
+<!--<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />-->
+<!-- Default theme -->
+<!--<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />-->
+<!-- Semantic UI theme -->
+<!--<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />-->
+<!-- Bootstrap theme -->
+<!--<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.rtl.min.css" />-->
+
+@if (TempData["Msg"] != null)
+    {
+        <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+            <h5 style="color: #B91646; margin-bottom: 10px; font-size: 25px;">
+                @TempData["Msg"]
+            </h5>
+        </div>
+    }
+
+<h1>Categories</h1>
+<a class="btn btn-primary mb-0" asp-action="Index" asp-controller="Home" style="float: right; margin-right: 39%; background-color: #6fb327; border-color: #6fb327">Add New Category</a>
+
+<table class="data-table data-tables-pagination responsive nowrap" data-order="[[ 1, &quot;desc&quot; ]]">
+    <thead>
+        <tr>
+            <th>
+                <h2>Title</h2>
+            </th>
+            @*<th>
+                    <h2>Categories</h2>
+                </th>
+                <th>
+                    <h2>SubCategories</h2>
+                </th>*@
+            <th><h2>Action</h2></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.servings)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.subcategories)
+                    </td>*@
+                <td>
+                    <a asp-action="Edit" asp-route-Id="@item.CategoryId" class="btn btn-info">Edit</a>
+                    <form asp-action="Delete" asp-route-Id="@item.CategoryId" style="display: inline-block">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script>
+
+    //$('.chkalert').cllick(function (event) {
+    //    alertify.confirm("Are you sure!",
+    //        function () {
+    //            alertify.success('Deleted');
+    //        },
+    //        function () {
+    //            alertify.error('Cancel');
+    //        });
+    //});
+
+    setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000);
+</script>

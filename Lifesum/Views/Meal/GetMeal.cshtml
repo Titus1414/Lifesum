@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Lifesum.Models.Meal>
+
+@{
+    ViewData["Title"] = "GetMeal";
+}
+
+@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+        <h5 style="color: #B91646; margin-bottom: 10px; font-size: 25px;">
+            @TempData["Msg"]
+        </h5>
+    </div>
+}
+
+<h1>Meals</h1>
+<a class="btn btn-primary mb-0" asp-action="Index" asp-controller="Meal" style="float: right; margin-right: 35%; background-color: #6fb327; border-color: #6fb327">Add Meal</a>
+
+<table class="data-table data-tables-pagination responsive nowrap" data-order="[[ 1, &quot;desc&quot; ]]">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Image
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.image)" style="width: 50px; height: 50px;" />
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-Id="@item.mealId" class="btn btn-info">Edit</a>
+                    <form asp-action="Delete" asp-route-Id="@item.mealId" style="display: inline-block">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script>
+    setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000);
+</script>

@@ -1,0 +1,40 @@
+﻿@model Lifesum.Models.CascadingClass
+
+
+@foreach (var items in ViewBag.FoodData)
+{
+    @if (items.foods.food != null)
+    {
+        <label>Food</label>
+        <select class="form-control" asp-for="FoodId">
+            <option disabled selected value="">Select Food</option>
+            @foreach (var item in items.foods.food)
+            {
+                <option value="@item.food_id">@item.food_name</option>
+            }
+        </select>
+    }
+}
+
+
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script>
+    //$(document).ready(function () {
+    //    debugger
+    $("#FoodId").change(function () {
+        var Id = $(this).val();
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Recipe/DisplayFoodServing?id=" + Id,
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                debugger
+                $("#Serving").empty();
+                $("#Serving").append(response);
+
+            }
+        })
+    });
+    /*});*/
+</script>

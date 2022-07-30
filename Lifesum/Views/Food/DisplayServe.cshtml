@@ -1,0 +1,16 @@
+﻿@model Lifesum.Models.Category
+
+<option disabled selected value="">Select Servings</option>
+
+@if (ViewBag.data != null)
+{
+    foreach (var item in ViewBag.data)
+    {
+        <option class="add_button">Create Custom Serving</option>
+
+        foreach (var item1 in item.servings)
+        {
+            <option>@item1</option>
+        }
+    }
+}

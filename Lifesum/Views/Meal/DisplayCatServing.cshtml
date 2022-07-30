@@ -1,0 +1,18 @@
+﻿@model Lifesum.Models.Category
+
+<option disabled selected value="">Add Serving</option>
+
+@if (ViewBag.data != null)
+{
+    foreach (var item in ViewBag.data)
+    {
+        if (item.serving != null)
+        {
+            foreach (var items in item.serving)
+            {
+                <option value="@items.value">@items.servingName (@items.value@items.unit)</option>
+            }
+        }
+
+    }
+}

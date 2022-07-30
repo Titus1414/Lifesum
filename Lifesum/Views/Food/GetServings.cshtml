@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Lifesum.Models.ServingDto>
+
+@{
+    ViewData["Title"] = "GetServings";
+}
+
+@if (TempData["Mesg"] != null)
+{
+    <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+        <h5 style="color: #B91646; margin-bottom: 10px; font-size: 25px;">
+            @TempData["Mesg"]
+        </h5>
+    </div>
+}
+
+<h1>Servings</h1>
+<a class="btn btn-primary mb-0" asp-action="Serving" asp-controller="Food" style="float: right; margin-top: 1%; margin-right: 26%; background-color: #6fb327; border-color: #6fb327">Add Servings</a>
+
+<div class="form-group position-relative error-l-50 col-6">
+    <select name="FoodId" id="FoodId" class="form-control" asp-items="@(new SelectList(ViewBag.Data, "FoodId", "title"))">
+        <option>Select Food</option>
+    </select>
+    <div class="invalid-tooltip">
+        Category is required!
+    </div>
+</div>
+
+<table class="data-table data-tables-pagination responsive nowrap" data-order="[[ 1, &quot;desc&quot; ]]">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Unit</th>
+            <th>Value</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="GetServingId">
+    </tbody>
+</table>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#FoodId").change(function () {
+            var CateId = $(this).val();
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/Food/GetServings?Id=" + CateId,
+                contenttype: 'application/json; charset=utf-8',
+                async: true,
+                success: function (response) {
+                    debugger
+                    //$("#GetServingId").empty();
+                    $("#GetServingId").html(response);
+                },
+                error: function () {
+                    debugger
+                    $("#GetServingId").empty();
+                }
+            })
+        });
+    });
+
+    setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000);
+</script>

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Lifesum.Models.Plans>
+
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Home Page";
+}
+
+<link href="~/Plans/css/plansCards.css" rel="stylesheet" />
+
+@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+        <h5 style="color: #4E9F3D; margin-bottom: 10px; font-size: 25px;">
+            @TempData["Msg"]
+        </h5>
+    </div>
+}
+
+<style>
+    .text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        -webkit-box-orient: vertical;
+    }
+</style>
+
+@*<a class="btn btn-primary mb-0" asp-controller="Plans" asp-action="PlanRecipes"  style="float: right; margin-top: -2%; margin-right: 5%; background-color: #6fb327; border-color: #6fb327">Add Recipes</a>*@
+<br>
+<br>
+<div class="container">
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4">
+                <div class="card card-margin">
+                    <a asp-action="Edit" asp-route-Id="@item.plansId">
+
+                        <div class="card-header no-border" style="background: linear-gradient(to right, @item.color1, @item.color2); color: white;">
+                            <span class="card-title m-3">@item.aim</span>
+                        </div>
+                        <div class="card-body pt-0" style="background: linear-gradient(to right, @item.color1, @item.color2 ); color: white; border-end-start-radius: 8px; border-end-end-radius: 8px; min-height: 110px;">
+                            <div class="widget-49">
+                                <h3 class="">@item.name</h3>
+                                <div class="text">
+                                    <span>@item.description</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        }
+
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000);
+
+</script>

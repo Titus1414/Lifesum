@@ -1,0 +1,71 @@
+﻿
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "PlanRecipes";
+}
+
+<style type="text/css">
+    .multiselect-container {
+        width: 100% !important;
+        height: 120px !important;
+        overflow-y: auto;
+    }
+    </style>
+
+@if (TempData["Msg"] != null)
+    {
+        <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+            <h5 style="color: #4E9F3D; margin-bottom: 10px; font-size: 25px;">
+                @TempData["Msg"]
+            </h5>
+        </div>
+    }
+
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="mb-4">Plans Recipes</h5>
+        <form action="AddRecipetoPlan" method="post" class="needs-validation tooltip-label-right">
+
+            <div class="form-group position-relative error-l-50">
+                <select name="plansId" class="form-control" asp-items="@(new SelectList(ViewBag.Plans, "plansId", "name"))" required>
+                    <option disabled selected value="">Select Plan</option>
+                </select>
+                <div class="invalid-tooltip">
+                    Plan is required!
+                </div>
+            </div>
+
+            <div class="form-group position-relative error-l-50">
+                <label>Recipes</label>
+                <select id="example-getting-started" multiple="multiple" class="nice_Select wide mb_30 multiselect-container form-control" name="recipes" required>
+                    @if (ViewBag.Recipes != null)
+                    {
+                        foreach (var item in ViewBag.Recipes)
+                        {
+                            <option value="@item.recipeId">@item.title</option>
+
+                        }
+                    }
+                </select>
+                <div class="invalid-tooltip">
+                    Recipe is required!
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-0" style="background-color: #6fb327; border-color: #6fb327">Save</button>
+
+        </form>
+    </div>
+</div>
+
+<script src="~/js/jquery-3.3.1.min.js"></script>
+    <script>
+        setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 4000);
+ </script>

@@ -1,0 +1,333 @@
+﻿@model Lifesum.Models.CascadingClass
+
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Food Page";
+}
+
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/flatly/bootstrap.min.css">*@
+@*<link href="~/css/main.css" rel="stylesheet" />*@
+
+
+
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="mb-4">Create Food</h5>
+        <form action="CreateFood" method="post" enctype="multipart/form-data" class="needs-validation tooltip-label-right" novalidate>
+            <div class="container">
+                <div class="row">
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <input type="text" name="title" class="form-control" placeholder="Title" required>
+                        <div class="invalid-tooltip">
+                            Title is required!
+                        </div>
+                    </div>
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <input type="text" name="brand" class="form-control" placeholder="Brand" required>
+                        <div class="invalid-tooltip">
+                            Brand is required!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <select asp-for="CategoryId" name="category" class="form-control" asp-items="@(new SelectList(ViewBag.Data, "CategoryId", "title"))" required>
+                            <option disabled selected value="">Select Category</option>
+                        </select>
+                        <div class="invalid-tooltip">
+                            Category is required!
+                        </div>
+                    </div>
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <select asp-for="CatId" name="subcategory" class="form-control" asp-items="@(new SelectList(""))" required>
+                        </select>
+                        <div class="invalid-tooltip">
+                            Subcategory is required!
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <input type="number" step="any" name="calories" class="form-control" placeholder="Calories / 100g" required>
+                        <div class="invalid-tooltip">
+                            Calories are required!
+                        </div>
+                    </div>
+
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <input type="number" step="any" name="protein" class="form-control" placeholder="Protein / 100g" required>
+                        <div class="invalid-tooltip">
+                            Protein is required!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <input type="number" step="any" name="carbs" class="form-control" placeholder="Carbs / 100g" required>
+                        <div class="invalid-tooltip">
+                            Carbs are required!
+                        </div>
+                    </div>
+
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <input type="number" step="any" name="fat" class="form-control" placeholder="Fat / 100g" required>
+                        <div class="invalid-tooltip">
+                            Fat is required!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <input type="number" step="any" name="saturatedfat" class="form-control" placeholder="Saturated Fat / 100g" required>
+                        <div class="invalid-tooltip">
+                            Saturated Fat is required!
+                        </div>
+                    </div>
+
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <input type="number" step="any" name="unsaturatedfat" class="form-control" placeholder="Unsaturated Fat / 100g" required>
+                        <div class="invalid-tooltip">
+                            Unsaturated Fat is required!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <input type="number" step="any" name="fiber" class="form-control" placeholder="Fiber / 100g" required>
+                        <div class="invalid-tooltip">
+                            Fiber is required!
+                        </div>
+                    </div>
+
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <input type="number" step="any" name="cholesterol" class="form-control" placeholder="Cholesterol / 100g" required>
+                        <div class="invalid-tooltip">
+                            Cholesterol is required!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <input type="number" step="any" name="potassium" class="form-control" placeholder="Potassium / 100g" required>
+                        <div class="invalid-tooltip">
+                            Potassium is required!
+                        </div>
+                    </div>
+
+                    <div class="form-group position-relative error-l-50 col-6">
+                        <input type="number" step="any" name="sodium" class="form-control" placeholder="Sodium / 100g" required>
+                        <div class="invalid-tooltip">
+                            Sodium is required!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="form-group position-relative error-l-50 col-4">
+                        <input type="text" name="barcode" class="form-control" placeholder="Barcode" required>
+                        <div class="invalid-tooltip">
+                            Barcode is required!
+                        </div>
+                    </div>
+
+                    <div class="form-group position-relative error-l-50 col-4">
+                        <input type="number" step="any" name="sugars" class="form-control" placeholder="Sugars / 100g" required>
+                        <div class="invalid-tooltip">
+                            Sugar is required!
+                        </div>
+                    </div>
+
+                    <div class="form-group position-relative error-l-50 col-4">
+                        <input type="file" name="image" class="form-control" accept="image/*" required>
+                        <div class="invalid-tooltip">
+                            Image is required!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="form-group position-relative error-l-50 container-fluid col-10">
+                <input type="number" name="sugars" class="form-control" placeholder="Sugars" required>
+                <div class="invalid-tooltip">
+                    Sugar is required!
+                </div>
+            </div>*@
+
+            <div class="container">
+                <div class="row">
+                    <div class="form-group position-relative error-l-50 col-3">
+
+                        <select asp-for="SerId" name="servingName" class="form-control" asp-items="@(new SelectList(""))" required>
+                        </select>
+
+                        @*<input type="text" name="servingName" class="form-control" placeholder="Serving Name" required>*@
+                        <div class="invalid-tooltip">
+                            Serving Name is required!
+                        </div>
+                    </div>
+
+                    <div class="form-group position-relative error-l-50 col-3">
+                        <select class="form-control" name="unit" aria-label="Default select example" required>
+                            <option disabled selected value="">Select Unit</option>
+                            <option value="ml">ml</option>
+                            <option value="g">g</option>
+                        </select>
+                        @*<input type="text" name="unit" class="form-control" placeholder="Unit / 100g" required>*@
+                        <div class="invalid-tooltip">
+                            Unit is required!
+                        </div>
+                    </div>
+                    <div class="form-group position-relative error-l-50 col-3">
+                        <input type="number" step="any" name="value" class="form-control" placeholder="Unit Value / 100g" required>
+                        <div class="invalid-tooltip">
+                            Value is required!
+                        </div>
+                    </div>
+                    <div class="newfield form-group position-relative error-l-50 col-3"></div>
+                    @*<div class="col-2">
+            <a href="javascript:void(0);" class="add_button" title="Add field"><img src="https://img.icons8.com/color/48/000000/plus--v1.png" /></a>
+        </div>*@
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row field_wrapper">
+
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-0" style="background-color: #6fb327; border-color: #6fb327">Save</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var maxField = 40; //Input fields increment limitation
+        var addButton = $('.add_button'); //Add button selector
+        var wrapper = $('.field_wrapper');//Input field wrapper
+        var fieldHTML = '<div class="col-md-6"><select asp-for="SerId1" Id="SerId1" name="servingName" class="form-control" asp-items="@(new SelectList(""))"></select><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="https://img.icons8.com/office/43/000000/minus.png" /></a></div>'; //New input field html
+        var fieldHTML1 = '<div><input type="text" name="unit" placeholder="Unit" required/><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="https://img.icons8.com/office/43/000000/minus.png" /></a></div>';
+        var fieldHTML2 = '<div><input type="text" name="value" placeholder="Unit Value" required/><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="https://img.icons8.com/office/43/000000/minus.png" /></a></div>';
+
+        var x = 1; //Initial field counter is 1
+
+        //Once add button is clicked
+        $(addButton).click(function () {
+            //Check maximum number of input fields
+            if (x < maxField) {
+                x++; //Increment field counter
+                $(wrapper).append('<div class="col-md-6"><select asp-for="SerId1' + x + '" Id="SerId1' + x + '" name="servingName" class="form-control" asp-items="@(new SelectList(""))"></select><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="https://img.icons8.com/office/43/000000/minus.png" /></a></div>'); //Add field html
+                $(wrapper).append(fieldHTML1); //Add field html
+                $(wrapper).append(fieldHTML2); //Add field html
+                //$(wrapper).append(minus); //Add field html
+
+                var CateId = $("#CategoryId").val();
+                debugger
+                $.ajax({
+                    type: "post",
+                    url: "/Food/GetSerList?id=" + CateId,
+                    contentType: "html",
+                    success: function (response) {
+                        debugger
+                        $("#SerId1" + x).empty();
+                        $("#SerId1" + x).append(response);
+
+                    }
+                })
+            }
+        });
+
+        //Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function (e) {
+            e.preventDefault();
+            $(this).parent('div').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    });
+
+
+    $(document).ready(function () {
+        $("#CategoryId").change(function () {
+            var CatId = $(this).val();
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/Food/GetServingList?id=" + CatId,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#CatId").empty();
+                    $("#CatId").append(response);
+                }
+            })
+        })
+    });
+
+    $(document).ready(function () {
+        $("#CategoryId").change(function () {
+            var CateId = $(this).val();
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/Food/GetServingsList?id=" + CateId,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#SerId").empty();
+                    $("#SerId").append(response);
+
+                }
+            })
+        });
+
+        $("#SerId").change(function () {
+            var CateId = $(this).val();
+            debugger
+            if (CateId == "Create Custom Serving") {
+                $('.newfield').append('<div class="SubKuch"><input type="text" class="form-control" name="customServing" placeholder="Serving Name" required><div class="invalid-tooltip">Serving Name is required!</div></div>');
+            }
+            else {
+                $('.SubKuch').remove(); //Remove field html
+            }
+        })
+
+        //Once remove button is clicked
+        $(".newfield").on('click', '.rem_btn', function (e) {
+            e.preventDefault();
+            $(this).parent('div').remove(); //Remove field html
+            /*x--;*/ //Decrement field counter
+        });
+    });
+
+</script>
+
+

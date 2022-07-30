@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Lifesum.Models.Filter>
+
+@{
+    ViewData["Title"] = "GetFilters";
+}
+
+@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+        <h5 style="color: #B91646; margin-bottom: 10px; font-size: 25px;">
+            @TempData["Msg"]
+        </h5>
+    </div>
+}
+
+<h1>Filters</h1>
+<a class="btn btn-primary mb-0" asp-action="Index" asp-controller="Filter" style="float: right; margin-right: 42%; background-color: #6fb327; border-color: #6fb327">Add Filter</a>
+
+<table class="data-table data-tables-pagination responsive nowrap" data-order="[[ 1, &quot;desc&quot; ]]">
+    <thead>
+        <tr>
+            <th>
+                Filter
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                if (item.filters != null)
+                {
+                    foreach (var items in item.filters)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => items)
+                            </td>
+                            <td>
+                                <form asp-action="Delete" asp-route-Id="@item.filterId">
+                                    <input type="hidden" name="Indx" value="@items" />
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            }
+        }
+
+    </tbody>
+</table>
+
+
+
+<script>
+    setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000);
+</script>

@@ -1,0 +1,27 @@
+﻿@model Lifesum.Models.Filter
+
+@{
+    ViewData["Title"] = "AddFilters";
+}
+
+
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="mb-4">Add Filters</h5>
+        <form action="AddFilters" method="post" class="needs-validation tooltip-label-right" novalidate>
+
+            <div class="form-group position-relative error-l-50">
+                <label>Filters</label>
+                <input type="text" name="filters" data-role="tagsinput" class="form-control" required>
+                <div class="invalid-tooltip">
+                    Filter is Required!
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-0" style="background-color: #6fb327; border-color: #6fb327">Save</button>
+        </form>
+    </div>
+</div>
+
+

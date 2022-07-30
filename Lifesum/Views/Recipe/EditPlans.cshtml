@@ -1,0 +1,125 @@
+﻿@model IEnumerable<Lifesum.Models.RecipePlan>
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Edit";
+}
+
+@*@if (TempData["Msg"] != null)
+    {
+        <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+            <h5 style="color: #4E9F3D; margin-bottom: 10px; font-size: 25px;">
+                @TempData["Msg"]
+            </h5>
+        </div>
+    }*@
+
+<style type="text/css">
+    .multiselect-container {
+        width: 100% !important;
+        height: 120px !important;
+        overflow-y: auto;
+    }
+</style>
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="mb-4">Edit Recipe</h5>
+                <form action="EditPlans" method="post" enctype="multipart/form-data" class="needs-validation tooltip-label-right" novalidate>
+                    <input type="hidden" name="recipeId" value="@item.recipeId" class="form-control" required>
+
+
+                    <div class="form-group position-relative error-l-50">
+                        <label>Plans</label>
+                        <select id="example-getting-started" multiple="multiple" class="nice_Select wide mb_30 multiselect-container form-control somethings" name="plans" aria-label="Default select example" required>
+
+                            @if (ViewBag.Plans != null)
+                            {
+                                foreach (var it in ViewBag.Plans)
+                                {
+                                    if (item.plans != null)
+                                    {
+                                        foreach (var i in item.plans)
+                                        {
+                                            if (it.plansId == i)
+                                            {
+                                            <option selected value="@it.plansId">@it.name</option>
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            @if (ViewBag.Plans != null)
+                            {
+                                foreach (var it in ViewBag.Plans)
+                                {
+                                    <option value="@it.plansId">@it.name</option>
+                                }
+                            }
+                        </select>
+                        <div class="invalid-tooltip">
+                            Plans are required!
+                        </div>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary mb-0" style="background-color: #6fb327; border-color: #6fb327">Save</button>
+                </form>
+            </div>
+        </div>
+
+    }
+}
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+
+    var seen = {};
+    jQuery('.something').children().each(function () {
+        var txt = jQuery(this).attr('value');
+        if (seen[txt]) {
+            jQuery(this).remove();
+        } else {
+            seen[txt] = true;
+        }
+    });
+
+    var seen = {};
+    jQuery('.somethings').children().each(function () {
+        var txt = jQuery(this).attr('value');
+        if (seen[txt]) {
+            jQuery(this).remove();
+        } else {
+            seen[txt] = true;
+        }
+    });
+
+    //setTimeout(function () {
+    //    $(".alert").fadeTo(500, 0).slideUp(500, function () {
+    //        $(this).remove();
+    //    });
+    //}, 4000);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

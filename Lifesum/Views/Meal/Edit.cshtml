@@ -1,0 +1,207 @@
+﻿@model IEnumerable<Lifesum.Models.Meal>
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<style type="text/css">
+    .multiselect-container {
+        width: 100% !important;
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+@foreach (var item1 in Model)
+{
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="mb-4">Edit Meal</h5>
+            <a class="btn btn-primary mb-0" asp-controller="Meal" asp-action="EditFood" asp-route-id="@item1.mealId" style="float: right; margin-top: -5%; margin-right: 5%; background-color: #6fb327; border-color: #6fb327">Edit Food</a>
+            <form action="Edit" method="post" enctype="multipart/form-data" class="needs-validation tooltip-label-right">
+                <input type="hidden" name="mealId" id="KuchB" value="@item1.mealId" class="form-control" required>
+                <input type="hidden" name="Id" value="@item1.Id" class="form-control" required>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Name</label>
+                    <input type="text" name="name" value="@item1.name" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Name is required!
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <label>Add New Image</label>
+                            <input type="file" name="image" accept="image/*" class="form-control">
+
+                        </div>
+
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <label></label>
+                            <input type="hidden" name="image1" accept="image/*" value="@item1.image" class="form-control">
+                            <img src="@Url.Content(item1.image)" style="width: 130px; height: 120px;" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="search_bar">
+                    <label>Food Search</label>
+                    <div class="input-group position-relative error-l-50">
+                        <input type="text" class="form-control" placeholder="Search" id="foodId" name="search" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" id="SubmitFoodSearch">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-tooltip">
+                            Food is required!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50" id="result" style="margin-top: 15px;">
+                    @*<select asp-for="FoodId" class="form-control" asp-items="@(new SelectList(ViewBag.Food, "FoodId", "title"))" required>
+                            <option disabled selected value="">Select Food</option>
+                        </select>*@
+
+                    <div class="invalid-tooltip">
+                        Food is required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50" id="Serving" style="margin-top: 15px;">
+                    @*<select asp-for="FoodId" class="form-control" asp-items="@(new SelectList(ViewBag.Food, "FoodId", "title"))" required>
+                            <option disabled selected value="">Select Food</option>
+                        </select>*@
+
+                    <div class="invalid-tooltip">
+                        Serving is required!
+                    </div>
+                </div>
+
+                @*<div class="form-group position-relative error-l-50">
+                        <label>Food</label>
+                        <select id="FoodId" name="food" class="form-control" asp-items="@(new SelectList(ViewBag.Food, "FoodId", "title"))">
+                            <option disabled selected value="">Select Food</option>
+                        </select>
+
+                        <div class="invalid-tooltip">
+                            Food is required!
+                        </div>
+                    </div>
+
+                    <div class="form-group position-relative error-l-50">
+                        <label>Serving</label>
+                        <select id="SerId" name="serving" class="form-control" asp-items="@(new SelectList(""))">
+                            <option disabled selected value="">Select Serving</option>
+                        </select>
+                        <div class="invalid-tooltip">
+                            Serving is required!
+                        </div>
+                    </div>*@
+
+                <button type="submit" class="btn btn-primary mb-0" style="background-color: #6fb327; border-color: #6fb327">Save</button>
+            </form>
+            <button id="add" class="btn btn-primary mb-0" style="float: right; margin-right: 72%; margin-top: -37px; background-color: #6fb327; border-color: #6fb327">Add Food to Meal</button>
+        </div>
+    </div>
+
+    <div id="GetCalculation">
+
+    </div>
+
+
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script>
+    //$(document).ready(function () {
+    //    debugger
+    //    $("#FoodId").change(function () {
+    //        var CateId = $(this).val();
+    //        debugger
+    //        $.ajax({
+    //            type: "post",
+    //            url: "/Meal/GetSerList?id=" + CateId,
+    //            contentType: "html",
+    //            success: function (response) {
+    //                debugger
+    //                $("#SerId").empty();
+    //                $("#SerId").append(response);
+
+    //            }
+    //        })
+    //    });
+    //});
+
+
+     $(function () {
+        $("#add").click(function () {
+            var food = $('#FoodId').val();
+            var serving = $('#SerId').val();
+            debugger
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("AddtoMeal", "Meal")',
+                data: { 'food': food, 'serving': serving },
+                contenttype: 'application/json; charset=utf-8',
+                async: true,
+                success: function (response) {
+                    debugger
+                    $("#GetCalculation").empty();
+                    $("#GetCalculation").append(response);
+
+                }
+                })
+                });
+     });
+
+        $(function () {
+        $("#SubmitFoodSearch").click(function () {
+            var foodName = $('#foodId').val();
+
+            debugger
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("DisplaySearchFood", "Recipe")',
+                data: { 'foodName': foodName },
+                contenttype: 'application/json; charset=utf-8',
+                async: true,
+                success: function (response) {
+                    debugger
+                    $("#result").empty();
+                    $("#result").append(response);
+
+                }
+                })
+                });
+    });
+
+
+    </script>
+
+
+
+    @*<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#BtnRecipe").click(function () {
+                    var recId = $('#KuchB').val();
+                debugger
+                $.ajax({
+                    type: "get",
+                    url: "/Recipe/EditFood?id=" + recId,
+                    contentType: "html",
+                    success: function (response) {
+                        debugger
+                        //$("#GetFoodId").empty();
+                        //$("#GetFoodId").append(response);
+                    }
+                })
+            })
+        });
+        </script>*@
+
+}

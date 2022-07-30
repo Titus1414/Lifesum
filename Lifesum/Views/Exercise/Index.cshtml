@@ -1,0 +1,54 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Home Page";
+}
+
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/flatly/bootstrap.min.css">*@
+
+@*<link href="~/Tags/css/tagsinput.css" rel="stylesheet" />*@
+
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="mb-4">Add Exercise</h5>
+        <form action="AddExercise" method="post" class="needs-validation tooltip-label-right" novalidate>
+            <div class="form-group position-relative error-l-50">
+                <label>Title</label>
+                <input type="text" name="title" class="form-control" required>
+                <div class="invalid-tooltip">
+                    Title is required!
+                </div>
+            </div>
+            <div class="form-group position-relative error-l-50">
+                <label>Calories</label>
+                    <input type="number" step="any" name="calories" placeholder="For 30 Minutes" class="form-control" required>
+                <div class="invalid-tooltip">
+                    Calories are required!
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-0" style="background-color: #6fb327; border-color: #6fb327">Save</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>*@
+@*<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-jjsmvgyd0p3pxb1rribzuayoiiy6orq6vrjieaff/njgzixfdsf4x0xim+b07jrm" crossorigin="anonymous"></script>*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>*@
+@*<script src="~/Tags/js/tagsinput.js"></script>*@
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36251023-1']);
+    _gaq.push(['_setDomainName', 'jqueryscript.net']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>

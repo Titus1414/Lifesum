@@ -1,0 +1,310 @@
+﻿@model IEnumerable<Lifesum.Models.CreateRecipe>
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+<style type="text/css">
+    .multiselect-container {
+        width: 100% !important;
+    }
+</style>
+
+
+
+@foreach (var item1 in Model)
+{
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="mb-4">Edit Recipe</h5>
+            <a class="btn btn-primary mb-0" asp-controller="Recipe" asp-action="EditFood" asp-route-id="@item1.recipeId" style="float: right; margin-top: -5%; margin-right: 5%; background-color: #6fb327; border-color: #6fb327">Edit Food</a>
+            <a class="btn btn-primary mb-0" asp-controller="Recipe" asp-action="EditPlans" asp-route-Id="@item1.recipeId" style="float: right; margin-top: -5%; margin-right: 18%; background-color: #6fb327; border-color: #6fb327">Edit Plans</a>
+            <form action="Edit" method="post" enctype="multipart/form-data" class="needs-validation tooltip-label-right" novalidate>
+                <input type="hidden" name="recipeId" id="KuchB" value="@item1.recipeId" class="form-control" required>
+                <input type="hidden" name="Id" value="@item1.Id" class="form-control" required>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Title</label>
+                    <input type="text" name="title" value="@item1.title" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Title is required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>No of Servings</label>
+                    <input type="number" step="any" name="servings" value="@item1.servings" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Servings are required!
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <label>Add New Image</label>
+                            <input type="file" name="image" accept="image/*" class="form-control">
+
+                        </div>
+
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <label></label>
+                            <input type="hidden" name="image1" accept="image/*" value="@item1.image" class="form-control">
+                            <img src="@Url.Content(item1.image)" style="width: 130px; height: 120px;" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Instructions</label>
+                    @*<input type="text" name="instructions" value="@Html.DisplayFor(modelItem => item1.instructions)" class="form-control" data-role="tagsinput" required>*@
+
+                    <select class="js-example-tags form-control" name="instructions" multiple="multiple" style="width: 100%" required>
+                        @foreach (var item in item1.instructions)
+                        {
+                            <option selected value="@item">@item</option>
+                        }
+                    </select>
+                    <div class="invalid-tooltip">
+                        Instructions are Required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Preparing Time</label>
+                    <input type="number" name="preparingTime" value="@item1.preparingTime" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Preparing Time is required!
+                    </div>
+                </div>
+
+                @*<div class="form-group position-relative error-l-50">
+            <label>Add Filter</label>
+            <select name="filter" class="something form-control" required>
+                <option selected value="@item1.filter">@item1.filter</option>
+                @if (ViewBag.Filter != null)
+                {
+                    foreach (var item in ViewBag.Filter)
+                    {
+                        foreach (var items in item.filters)
+                        {
+                            <option value="@items">@items</option>
+                        }
+                    }
+                }
+            </select>
+            <div class="invalid-tooltip">
+                Filter is required!
+            </div>
+        </div>*@
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Type</label>
+                    <select class="somethings form-control" name="type" aria-label="Default select example" required>
+                        <option selected value="@item1.type">@item1.type</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Snack">Snack</option>
+                        <option value="Dinner">Dinner</option>
+                    </select>
+                    <div class="invalid-tooltip">
+                        Type is required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Manual Ingredients</label>
+                    <select class="js-example-tags form-control" name="manualIngredients" multiple="multiple" style="width: 100%" required>
+                        @foreach (var item in item1.manualIngredients)
+                        {
+                            <option selected value="@item">@item</option>
+                        }
+                    </select>
+                    <div class="invalid-tooltip">
+                        Manual Ingredients are Required!
+                    </div>
+                </div>
+
+                <div class="search_bar">
+                    <label>Food Search</label>
+                    <div class="input-group position-relative error-l-50">
+                        <input type="text" class="form-control" placeholder="Search" id="foodId" name="search">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" id="SubmitFoodSearch">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-tooltip">
+                            Food is required!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50" id="result" style="margin-top: 15px;">
+                    @*<select asp-for="FoodId" class="form-control" asp-items="@(new SelectList(ViewBag.Food, "FoodId", "title"))" required>
+                <option disabled selected value="">Select Food</option>
+            </select>*@
+
+                    <div class="invalid-tooltip">
+                        Food is required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50" id="Serving" style="margin-top: 15px;">
+                    @*<select asp-for="FoodId" class="form-control" asp-items="@(new SelectList(ViewBag.Food, "FoodId", "title"))" required>
+                <option disabled selected value="">Select Food</option>
+            </select>*@
+
+                    <div class="invalid-tooltip">
+                        Serving is required!
+                    </div>
+                </div>
+
+                @*<div class="form-group position-relative error-l-50">
+            <label>Food</label>
+            <select id="FoodId" class="form-control" asp-items="@(new SelectList(ViewBag.Food, "FoodId", "title"))">
+                <option disabled selected value="">Select Food</option>
+            </select>
+
+            <div class="invalid-tooltip">
+                Food is required!
+            </div>
+        </div>
+
+        <div class="form-group position-relative error-l-50">
+            <label>Serving</label>
+            <select id="SerId" name="serving" class="form-control" asp-items="@(new SelectList(""))">
+                <option disabled selected value="">Select Serving</option>
+            </select>
+            <div class="invalid-tooltip">
+                Serving is required!
+            </div>
+        </div>*@
+
+                <button type="submit" class="btn btn-primary mb-0" style="background-color: #6fb327; border-color: #6fb327">Save</button>
+            </form>
+            <button id="add" class="btn btn-primary mb-0" style="float: right; margin-right: 72%; margin-top: -37px; background-color: #6fb327; border-color: #6fb327">Add Food to Recipe</button>
+        </div>
+    </div>
+
+
+    <div id="GetCalculation">
+
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        //$(document).ready(function () {
+        //    $("#BtnRecipe").click(function () {
+        //        var recId = $('#KuchB').val();
+        //    debugger
+        //    $.ajax({
+        //        type: "get",
+        //        url: "/Recipe/EditFood?id=" + recId,
+        //        contentType: "html",
+        //        success: function (response) {
+        //            debugger
+        //            //$("#GetFoodId").empty();
+        //            //$("#GetFoodId").append(response);
+        //        }
+        //    })
+        //})
+        //});
+
+        var seen = {};
+        jQuery('.something').children().each(function () {
+            var txt = jQuery(this).attr('value');
+            if (seen[txt]) {
+                jQuery(this).remove();
+            } else {
+                seen[txt] = true;
+            }
+        });
+
+        var seen = {};
+        jQuery('.somethings').children().each(function () {
+            var txt = jQuery(this).attr('value');
+            if (seen[txt]) {
+                jQuery(this).remove();
+            } else {
+                seen[txt] = true;
+            }
+        });
+
+    //    $(document).ready(function () {
+    //    debugger
+    //    $("#FoodId").change(function () {
+    //        var CateId = $(this).val();
+    //        debugger
+    //        $.ajax({
+    //            type: "post",
+    //            url: "/Recipe/GetSerList?id=" + CateId,
+    //            contentType: "html",
+    //            success: function (response) {
+    //                debugger
+    //                $("#SerId").empty();
+    //                $("#SerId").append(response);
+
+    //            }
+    //        })
+    //    });
+    //});
+
+    $(function () {
+        $("#add").click(function () {
+            var food = $('#FoodId').val();
+            var serving = $('#SerId').val();
+            debugger
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("AddtoRecipe", "Recipe")',
+                data: { 'food': food, 'serving': serving },
+                contenttype: 'application/json; charset=utf-8',
+                async: true,
+                success: function (response) {
+                    debugger
+                    $("#GetCalculation").empty();
+                    $("#GetCalculation").append(response);
+
+                }
+                })
+                });
+    });
+
+         $(function () {
+        $("#SubmitFoodSearch").click(function () {
+            var foodName = $('#foodId').val();
+
+            debugger
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("DisplaySearchFood", "Recipe")',
+                data: { 'foodName': foodName },
+                contenttype: 'application/json; charset=utf-8',
+                async: true,
+                success: function (response) {
+                    debugger
+                    $("#result").empty();
+                    $("#result").append(response);
+
+                }
+                })
+                });
+    });
+
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(".js-example-tags").select2({
+            tags: true
+        });
+    </script>
+    
+}

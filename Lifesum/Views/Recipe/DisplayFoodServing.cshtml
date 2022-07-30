@@ -1,0 +1,41 @@
+﻿@model Lifesum.Models.CascadingClass
+
+
+@if (ViewBag.FoodServingData != null)
+{
+    foreach (var items in ViewBag.FoodServingData)
+    {
+        if (items.food.servings.serving != null)
+        {
+            <label>Food</label>
+            <select class="form-control" asp-for="SerId">
+                <option disabled selected value="">Select Serving</option>
+                @foreach (var item in items.food.servings.serving)
+                {
+                    <option value="@item.serving_id">Serving Id: @item.serving_id</option>
+                }
+            </select>
+        }
+
+    }
+}
+else
+{
+    if (ViewBag.FoodServingSingle != null)
+    {
+        foreach (var itemsIn in ViewBag.FoodServingSingle)
+        {
+            if (itemsIn.food.servings.serving != null)
+            {
+                var serve = itemsIn.food.servings.serving;
+                <label>Food</label>
+                <select class="form-control" asp-for="SerId">
+                    <option disabled selected value="">Select Serving</option>
+                    <option value="@serve.serving_id">Serving Id: @serve.serving_id</option>
+                </select>
+            }
+
+        }
+    }
+}
+@*<option value="@item.serving_id">Calcium:@item.calcium Calories:@item.calories Carbohydrate:@item.carbohydrate Cholesterol:@item.cholesterol Fat:@item.fat Fiber:@item.fiber Iron:@item.iron Measurement_description:@item.measurement_description Metric_serving_amount:@item.metric_serving_amount Metric_serving_unit:@item.metric_serving_unit Monounsaturated_fat:@item.monounsaturated_fat Number_of_units:@item.number_of_units Polyunsaturated_fat:@item.polyunsaturated_fat Potassium:@item.potassium Protein:@item.protein Saturated_fat:@item.saturated_fat Serving_description:@item.serving_description Serving_id:@item.serving_id Sodium:@item.sodium Sugar:@item.sugar Vitamin_a:@item.vitamin_a Vitamin_c:@item.vitamin_c</option>*@

@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Lifesum.Models.ShortVideo>
+
+@{
+    ViewData["Title"] = "GetShortVideos";
+}
+
+@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+        <h5 style="color: #B91646; margin-bottom: 10px; font-size: 25px;">
+            @TempData["Msg"]
+        </h5>
+    </div>
+}
+
+<h1>Short Videos</h1>
+<a class="btn btn-primary mb-0" asp-action="Index" asp-controller="ShortVideo" style="float: right; margin-right: 20%; background-color: #6fb327; border-color: #6fb327">Add Video</a>
+
+<table class="data-table data-tables-pagination responsive nowrap" data-order="[[ 1, &quot;desc&quot; ]]">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Body Part
+            </th>
+            <th>
+                Thumbnail
+            </th>
+            <th>
+                Video
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bodyPart)
+            </td>
+            <td>
+                <img src="@Url.Content(item.thumbnail)" style="width: 100px; height: 80px;" />
+            </td>
+            <td>
+                <video width="180" height="120" controls>
+                    <source src="@Url.Content(item.video)" type="video/mp4">
+                </video>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-Id="@item.videoId" class="btn btn-info">Edit</a>
+                <form asp-action="Delete" asp-route-Id="@item.videoId" style="display: inline-block">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script>
+    setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000);
+</script>
+
+
+
+
+@*<div class="container">
+    @if (Model != null)
+    {
+
+
+
+        <div class="row">
+            @foreach (var vid in Model)
+            {
+                <div class="col-lg-4 col-md-4 col-xl-6">
+
+                    <video width="320" height="240" controls>
+                        <source src="@Url.Content(vid.video)" type="video/mp4">
+                    </video>
+
+                </div>
+                <div>
+                    <h6>@vid.title</h6>
+                    <p>@vid.bodyPart</p>
+                    <a asp-action="Edit" asp-route-Id="@vid.videoId" class="btn btn-info">Edit</a>
+                    <form asp-action="Delete" asp-route-Id="@vid.videoId" style="display: inline-block">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            }
+        </div>
+
+    }
+</div>*@

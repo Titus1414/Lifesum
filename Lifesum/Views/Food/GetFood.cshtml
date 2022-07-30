@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Lifesum.Models.CreateFoodDto>
+
+@{
+    ViewData["Title"] = "GetFoods";
+}
+
+@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+        <h5 style="color: #B91646; margin-bottom: 10px; font-size: 25px;">
+            @TempData["Msg"]
+        </h5>
+    </div>
+}
+
+<h1>Foods</h1>
+<a class="btn btn-primary mb-0" asp-action="Index" asp-controller="Food" style="float: right; margin-right: 4%; background-color: #6fb327; border-color: #6fb327">Add Food</a>
+<a class="btn btn-primary mb-0" asp-action="GetServings" asp-controller="Food" style="float: right; margin-right: 1%; background-color: #6fb327; border-color: #6fb327">Servings</a>
+
+<div class="data-tables-hide-filter">
+    <table class="data-table data-tables-pagination responsive nowrap" data-order="[[ 1, &quot;desc&quot; ]]">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Brand</th>
+                <th>Barcode</th>
+                <th>Calories</th>
+                <th>Image</th>
+
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.brand)</td>
+                    <td>@Html.DisplayFor(modelItem => item.barcode)</td>
+                    <td>@Html.DisplayFor(modelItem => item.calories)</td>
+                    <td>
+                        <img src="@Url.Content(item.Image)" style="width: 50px; height: 50px;" />
+                    </td>
+
+                    <td>
+                        <a asp-action="EditFood" asp-route-Id="@item.FoodId" class="btn btn-info">Edit</a>
+                        <form asp-action="Delete" asp-route-Id="@item.FoodId" style="display: inline-block">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script>
+    setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 4000);
+</script>

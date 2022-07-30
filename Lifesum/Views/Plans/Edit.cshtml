@@ -1,0 +1,261 @@
+﻿@model IEnumerable<Lifesum.Models.Plans>
+
+
+@{
+
+    ViewData["Title"] = "Edit";
+}
+
+@*@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-cyan alert-dismissable" data-auto-dismiss role="alert">
+        <h5 style="color: #4E9F3D; margin-bottom: 10px; font-size: 25px;">
+            @TempData["Msg"]
+        </h5>
+    </div>
+}*@
+ 
+<style type="text/css">
+    .multiselect-container {
+        width: 100% !important;
+        height: 120px !important;
+        overflow-y: auto;
+    }
+</style>
+    
+@if (Model != null)
+{
+@foreach (var item in Model)
+{
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="mb-4">Edit Plan</h5>
+            @*<a class="btn btn-primary mb-0" asp-controller="Plans" asp-action="EditRecipe" asp-route-id="@item.plansId" style="float: right; margin-top: -5%; margin-right: 5%; background-color: #6fb327; border-color: #6fb327">Edit Recipe</a>*@
+            <form action="Edit" method="post" enctype="multipart/form-data" class="needs-validation tooltip-label-right" novalidate>
+                <input type="hidden" name="plansId" value="@item.plansId" class="form-control" required>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Name</label>
+                    <input type="text" name="name" value="@item.name" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Name is required!
+                    </div>
+                </div>
+
+                <div class="com=ntainer">
+                    <div class="row">
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <label>Color1</label>
+                            <input type="color" name="color1" value="@item.color1" class="form-control" required>
+                            <div class="invalid-tooltip">
+                                Color1 is required!
+                            </div>
+                        </div>
+
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <label>Color2</label>
+                            <input type="color" name="color2" value="@item.color2" class="form-control" required>
+                            <div class="invalid-tooltip">
+                                Color2 is required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <label>Add New Image</label>
+                            <input type="file" name="coverImage" accept="image/*" class="form-control">
+
+                        </div>
+
+                        <div class="form-group position-relative error-l-50 col-6">
+                            <label></label>
+                            <input type="hidden" name="coveImage" accept="image/*" value="@item.coverImage" class="form-control">
+                            <img src="@Url.Content(item.coverImage)" style="width: 130px; height: 120px;" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Description</label>
+                    <input type="text" name="description" value="@item.description" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Description is required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Aim</label>
+                    <input type="text" name="aim" value="@item.aim" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Aim is required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Testimonial</label>
+                    <input type="text" name="testimonial" value="@item.testimonial" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Testimonial is required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Testimonial By</label>
+                    <input type="text" name="testimonialBy" value="@item.testimonialBy" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Testimonial By is required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Testimonial Specialization</label>
+                    <input type="text" name="testimonialSpecialization" value="@item.testimonialSpecialization" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Testimonial Specialization is required!
+                    </div>
+                </div>
+
+
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Type</label>
+                    <select class="somethings form-control" name="type" aria-label="Default select example" required>
+                        <option selected value="@item.type">@item.type</option>
+                        <option value="Balanced Diet">Balanced Diet</option>
+                        <option value="Keto & Fasting">Keto & Fasting</option>
+                        <option value="Meal Plans">Meal Plans</option>
+                    </select>
+                    <div class="invalid-tooltip">
+                        Type is required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Goal</label>
+                    <select id="example-getting-started" multiple="multiple" class="nice_Select wide mb_30 multiselect-container form-control somethings" name="goal" aria-label="Default select example" required>
+                        @foreach (var i in item.goal)
+                        {
+                            <option selected value="@i">@i</option>
+                        }
+                        <option value="Lose Weight">Lose Weight</option>
+                        <option value="Maintain Weight">Maintain Weight</option>
+                        <option value="Gain Weight">Gain Weight</option>
+                    </select>
+                    <div class="invalid-tooltip">
+                        Goal is required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Warning Message</label>
+                    <input type="text" id="yourText" name="warningMessage" value="@item.warningMessage" class="form-control" placeholder="optinal...">
+                    <div class="invalid-tooltip">
+                        Warning Message is required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Focus Message</label>
+                    <input type="text" name="focusMessage" value="@item.focusMessage" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Focus Message is required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Calories</label>
+                    <input type="number" step="any" name="calories" value="@item.calories" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Calories are required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Carbs <span>(Sum of Protein, carbs and fat must be equal to 100)</span></label>
+                    <input type="number" step="any" name="carbs" value="@item.carbs" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Carbs are required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Protein <span>(Sum of Protein, carbs and fat must be equal to 100)</span></label>
+                    <input type="number" step="any" name="protein" value="@item.protein" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Protein is Required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Fat <span>(Sum of Protein, carbs and fat must be equal to 100)</span></label>
+                    <input type="number" step="any" name="fat" value="@item.fat" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Fat is Required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Dos</label>
+                    <input type="text" name="dos" value="@Html.DisplayFor(modelItem => item.dos)" class="form-control" data-role="tagsinput" required>
+                    <div class="invalid-tooltip">
+                        Dos are Required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Donts</label>
+                    <input type="text" name="donts" value="@Html.DisplayFor(modelItem => item.donts)" class="form-control" data-role="tagsinput" required>
+                    <div class="invalid-tooltip">
+                        Don'ts are Required!
+                    </div>
+                </div>
+
+                <div class="form-group position-relative error-l-50">
+                    <label>Features</label>
+                    <input type="text" name="features" value="@Html.DisplayFor(modelItem => item.features)" data-role="tagsinput" class="form-control" required>
+                    <div class="invalid-tooltip">
+                        Features are required!
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary mb-0" style="background-color: #6fb327; border-color: #6fb327">Save</button>
+            </form>
+        </div>
+    </div>
+
+}
+}
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+
+    var seen = {};
+    jQuery('.something').children().each(function () {
+        var txt = jQuery(this).attr('value');
+        if (seen[txt]) {
+            jQuery(this).remove();
+        } else {
+            seen[txt] = true;
+        }
+    });
+
+    var seen = {};
+    jQuery('.somethings').children().each(function () {
+        var txt = jQuery(this).attr('value');
+        if (seen[txt]) {
+            jQuery(this).remove();
+        } else {
+            seen[txt] = true;
+        }
+    });
+
+    //setTimeout(function () {
+    //    $(".alert").fadeTo(500, 0).slideUp(500, function () {
+    //        $(this).remove();
+    //    });
+    //}, 4000);
+
+</script>
